@@ -24,5 +24,6 @@ else
 fi
 
 # 启动 Ollama 服务
-echo "启动 Ollama 服务..."
-exec ollama serve --model "/root/.ollama/$MODEL_NAME"
+echo "启动 Ollama 服务，加载模型 $MODEL_NAME..."
+# exec ollama serve --model "/root/.ollama/$MODEL_NAME"
+exec ollama serve

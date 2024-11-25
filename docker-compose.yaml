@@ -7,12 +7,12 @@ services:
     container_name: ollama
     restart: always
     ports:
-      - "11434:11434"
+      - "11434:11434"  # 曝露 Ollama API 服务端口
     environment:
-      MODEL_NAME: "google/gemma-2-2b" # 模型名称
-      MODEL_REPO: "git@hf.co:google/gemma-2-2b" # 模型仓库地址
+      MODEL_NAME: "Qwen2.5-1.5B-Instruct"       # 模型名称
+      MODEL_REPO: "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct" # 模型仓库地址
     volumes:
-      - ./models:/root/.ollama # 挂载目录，用于存储模型数据
+      - ./models:/root/.ollama # 挂载模型目录
     networks:
       - ollama_network
 
