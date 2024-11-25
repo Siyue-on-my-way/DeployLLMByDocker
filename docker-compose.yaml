@@ -1,21 +1,23 @@
-version: '3.1'
+version: '3.8'
+
 services:
-  # API service
   ollama:
-    image: registry.cn-hangzhou.aliyuncs.com/docker_all_mirrors/ollama:latest
+    build:
+      context: .
     container_name: ollama
     restart: always
-    volumes:
-        # Mount the storage directory to the container, for storing user files.
-        - ./models:/root/.ollama
-    # uncomment to expose aidex-api port to host
     ports:
-      - "11434:11434"
+      - "11434:11434" # Expose Ollama's API port
+    volumes:
+      - ./models:/root/.ollama # Mount models directory
+    environment:
+      MODEL_NAME: "google/gemma-2-2b" # The name of the model
+      DEFAULT_MODEL_URL: "https://default-repo.com/models/gemma-2-2b.bin" # Default download URL
+      USE_CUSTOM_URL: "false" # Set to "true" if you want to use a custom download URL
+      CUSTOM_MODEL_URL: "" # Provide a custom model download URL if needed
     networks:
       - ollama_network
-
 
 networks:
   ollama_network:
     driver: bridge
-
