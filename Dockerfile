@@ -1,18 +1,18 @@
-# Use base image
+# 使用 Ollama 基础镜像
 FROM registry.cn-hangzhou.aliyuncs.com/docker_all_mirrors/ollama:latest
 
-# Install Git and Git LFS
+# 安装必要工具
 RUN apt-get update && apt-get install -y git git-lfs && git lfs install
 
-# Set working directory
+# 设置工作目录
 WORKDIR /root/.ollama
 
-# Clone the model repository
-ARG MODEL_REPO=${MODEL_REPO}
-RUN git clone ${MODEL_REPO} model && cd model && git lfs pull
+# 添加下载和启动脚本
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-# Expose the API port
+# 暴露服务端口
 EXPOSE 11434
 
-# Start Ollama
-CMD ["ollama", "serve", "--model", "/root/.ollama/model"]
+# 使用自定义的启动脚本
+ENTRYPOINT ["/entrypoint.sh"]

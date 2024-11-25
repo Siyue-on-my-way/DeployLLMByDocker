@@ -9,7 +9,10 @@ services:
     ports:
       - "11434:11434"
     environment:
-      MODEL_REPO: "https://hf-mirror.com/google/gemma-2-2b" # Replace with your model repository
+      MODEL_NAME: "google/gemma-2-2b" # 模型名称
+      MODEL_REPO: "https://hf-mirror.com/google/gemma-2-2b" # 模型仓库地址
+    volumes:
+      - ./models:/root/.ollama # 挂载目录，用于存储模型数据
     networks:
       - ollama_network
 
