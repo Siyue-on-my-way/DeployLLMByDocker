@@ -7,14 +7,9 @@ services:
     container_name: ollama
     restart: always
     ports:
-      - "11434:11434" # Expose Ollama's API port
-    volumes:
-      - ./models:/root/.ollama # Mount models directory
+      - "11434:11434"
     environment:
-      MODEL_NAME: "google/gemma-2-2b" # The name of the model
-      DEFAULT_MODEL_URL: "https://default-repo.com/models/gemma-2-2b.bin" # Default download URL
-      USE_CUSTOM_URL: "false" # Set to "true" if you want to use a custom download URL
-      CUSTOM_MODEL_URL: "" # Provide a custom model download URL if needed
+      MODEL_REPO: "https://hf-mirror.com/google/gemma-2-2b" # Replace with your model repository
     networks:
       - ollama_network
 
