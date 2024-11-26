@@ -7,3 +7,24 @@ docker exec -it ollama bash
 ```
 ollama run qwen2:0.5b
 ```
+
+- 测试
+1、生成回复
+```
+curl http://118.178.241.227:11434/api/generate -d '{
+  "model": "qwen2:0.5b",
+  "prompt":"Why is the sky blue?",
+  "stream":false
+}'
+```
+
+2、模型对话
+```
+curl http://118.178.241.227:11434/api/chat -d '{
+  "model": "qwen2:0.5b",
+  "messages": [
+    { "role": "user", "content": "why is the sky blue?" }
+  ],
+  "stream":false
+}'
+```
