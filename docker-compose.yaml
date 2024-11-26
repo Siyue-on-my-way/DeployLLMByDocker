@@ -1,14 +1,11 @@
-version: '3.8'
+version: '3.8'  # 你可以根据需要使用不同的版本
 
 services:
   ollama:
-    build:
-      context: .
+    image: ollama/ollama:latest
     container_name: ollama
-    restart: always
+    volumes:
+      - ollama:/root/.ollama
     ports:
       - "11434:11434"
-    volumes:
-      - ./models:/root/.ollama
-    environment:
-      MODEL_NAME: "qwen2:0.5b"
+    restart: always
