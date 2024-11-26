@@ -1,11 +1,11 @@
-# 基于官方 Ollama 镜像
 FROM ollama/ollama:latest
 
 # 设置工作目录
 WORKDIR /root/.ollama
 
-# 定义环境变量
-ARG MODEL_NAME=qwen2:0.5b
+# 添加模型加载脚本
+COPY start_model.sh /root/start_model.sh
+RUN chmod +x /root/start_model.sh
 
-# 启动容器时自动运行模型
-CMD ["ollama", "run", "qwen2:0.5b"]
+# 默认启动 Ollama 服务（可覆盖）
+CMD ["ollama", "serve"]
