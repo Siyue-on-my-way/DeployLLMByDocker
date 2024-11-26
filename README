@@ -1,0 +1,9 @@
+- docker-copomse 启动ollama并暴露服务端口
+- 进入docker ollama 
+```shell
+docker exec -it ollama bash
+```
+- 使用ollama命令启动大模型
+```
+ollama run qwen2:0.5b
+```
