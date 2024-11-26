@@ -3,13 +3,12 @@ version: '3.8'
 services:
   ollama:
     build:
-      context: .                 # Dockerfile 的路径
-    container_name: ollama       # 容器名称
-    restart: always              # 自动重启
+      context: .
+    container_name: ollama
+    restart: always
     ports:
-      - "11434:11434"            # 映射端口
+      - "11434:11434"
     volumes:
-      - ./models:/root/.ollama     # 持久化模型数据存储
+      - ./models:/root/.ollama
     environment:
-      # 可选：允许传递模型版本或其他配置
       MODEL_NAME: "qwen2:0.5b"

@@ -1,11 +1,13 @@
 FROM ollama/ollama:latest
 
-# 设置工作目录
 WORKDIR /root/.ollama
 
-# 添加模型加载脚本
+# 安装必要工具（如有需要）
+RUN apt-get update && apt-get install -y git git-lfs && git lfs install
+
+# 添加启动脚本
 COPY start_model.sh /root/start_model.sh
 RUN chmod +x /root/start_model.sh
 
-# 默认启动 Ollama 服务（可覆盖）
-CMD ["ollama", "serve"]
+# 默认启动脚本
+CMD ["/root/start_model.sh"]
