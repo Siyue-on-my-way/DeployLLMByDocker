@@ -1,25 +1,11 @@
-FROM ubuntu:20.04
-
-# 安装必要工具
-RUN apt-get update && apt-get install -y \
-    git \
-    git-lfs \
-    curl && \
-    git lfs install && \
-    apt-get clean
+# 基于官方 Ollama 镜像
+FROM ollama/ollama:latest
 
 # 设置工作目录
 WORKDIR /root/.ollama
 
-# 环境变量
-ARG MODEL_REPO=""
-ENV MODEL_REPO=${MODEL_REPO}
+# 定义环境变量
+ARG MODEL_NAME=qwen2:0.5b
 
-# 拉取模型
-RUN if [ -n "$MODEL_REPO" ]; then \
-        git clone "$MODEL_REPO" model && cd model && git lfs pull; \
-    fi
-
-# 启动 Ollama 服务
-ENTRYPOINT ["ollama"]
-CMD ["serve"]
+# 启动容器时自动运行模型
+CMD ["ollama", "run", "qwen2:0.5b"]
