@@ -9,7 +9,7 @@ services:
     ports:
       - "11434:11434"            # 映射端口
     volumes:
-      - models:/root/.ollama     # 持久化模型数据存储
+      - ./models:/root/.ollama     # 持久化模型数据存储
     environment:
       # 可选：允许传递模型版本或其他配置
       MODEL_NAME: "qwen2:0.5b"
