@@ -3,7 +3,7 @@
 ```shell
 docker exec -it ollama bash
 ```
-- 使用ollama命令启动大模型
+- 使用ollama命令启动大模型, ollama工具会自动去下载qwan:0.5b的模型并run起来
 ```
 ollama run qwen2:0.5b
 ```
@@ -11,7 +11,7 @@ ollama run qwen2:0.5b
 - 测试
 1、生成回复
 ```
-curl http://118.178.241.227:11434/api/generate -d '{
+curl http://118.178.241.227:11411/api/generate -d '{
   "model": "qwen2:0.5b",
   "prompt":"Why is the sky blue?",
   "stream":false
@@ -20,7 +20,7 @@ curl http://118.178.241.227:11434/api/generate -d '{
 
 2、模型对话
 ```
-curl http://118.178.241.227:11434/api/chat -d '{
+curl http://118.178.241.227:11411/api/chat -d '{
   "model": "qwen2:0.5b",
   "messages": [
     { "role": "user", "content": "why is the sky blue?" }
@@ -28,3 +28,9 @@ curl http://118.178.241.227:11434/api/chat -d '{
   "stream":false
 }'
 ```
+
+- 接入第三方工具
+比如dify, ragflow上去配置大模型， 输入url和模型名称即可
+http://118.178.241.227:11411
+qwen2:0.5b
+这样就可以在第三方工具上愉快的使用自己部署的大模型啦，直接在网页上做对话或者文章解读

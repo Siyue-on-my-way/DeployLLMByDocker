@@ -7,5 +7,6 @@ services:
     volumes:
       - ./models:/root/.ollama
     ports:
-      - "11434:11434"
+      # ollama服务默认端口是11434， 这里向外暴露端口是11411
+      - "11411:11434"
     restart: always
