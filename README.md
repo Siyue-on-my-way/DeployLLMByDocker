@@ -1,53 +1,15 @@
-# Ollama 部署与使用
-### 部署ollama
-<p>启动ollama并暴露服务端口<p>
-<p>使用docker-compose启动ollama服务，并暴露服务端口。<p>
-<p>进入docker ollama容器<p>
+# 分支指引
 
-```
-docker exec -it ollama bash
-```
+## ollama
+### ollama/deploy_origin_qwen2_0.5b
+> ollama部署qwen模型的方式，主要是直接部署ollama库里的模型，直接执行ollama run  {model_name}会自动下载模型并启动模型服务
 
+### ollama/deploy_download_model
+> ollama部署本地大模型的方式，主要是在hf-mirror或huggingface网站上手动下载大模型文件，然后尝试在本地部署时使用这些模型文件
 
-### ollama启动大模型
-<p>使用ollama命令启动大模型<p>
-<p>ollama工具会自动下载qwen2:0.5b的模型并运行。<p>
-
-```
-ollama run qwen2:0.5b
-```
+## xinference
 
 
-### 测试
-1. 生成回复
-```
-curl http://118.178.241.227:11411/api/generate -d '{
-  "model": "qwen2:0.5b",
-  "prompt": "Why is the sky blue?",
-  "stream": false
-}'
-```
-2. 模型对话
-```
-curl http://118.178.241.227:11411/api/chat -d '{
-  "model": "qwen2:0.5b",
-  "messages": [
-    { "role": "user", "content": "why is the sky blue?" }
-  ],
-  "stream": false
-}'
-```
-
-3、接入第三方工具
-例如，使用dify或ragflow配置大模型，只需输入URL和模型名称即可。
-
->模型类型：LLM
->
->服务器URL: http://118.178.241.227:11411
->
->模型名称: qwen2:0.5b
->
->Completion type: 对话
+## vllm
 
 
-<p>这样，您就可以在第三方工具上愉快地使用自己部署的大模型了，直接在网页上进行对话或文章解读。<p>
