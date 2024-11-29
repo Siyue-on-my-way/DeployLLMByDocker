@@ -1,53 +1,40 @@
-# Ollama 部署与使用
-### 部署ollama
-<p>启动ollama并暴露服务端口<p>
-<p>使用docker-compose启动ollama服务，并暴露服务端口。<p>
-<p>进入docker ollama容器<p>
+# xinference的部署
 
+## 使用CPU部署xinfenrence
 ```
-docker exec -it ollama bash
-```
-
-
-### ollama启动大模型
-<p>使用ollama命令启动大模型<p>
-<p>ollama工具会自动下载qwen2:0.5b的模型并运行。<p>
-
-```
-ollama run qwen2:0.5b
+  xinference:
+    image: docker-registry.neuedu.com/xprobe/xinference:v0.15.2-cpu
+    container_name: xinference
+    restart: always
+    ports:
+      - "9997:9997"
+    environment:
+      - XINFERENCE_HOME=/opt/xinference
+    volumes:
+      - /opt/xinference:/opt/xinference
+    command: xinference-local -H 0.0.0.0
 ```
 
-
-### 测试
-1. 生成回复
-```
-curl http://118.178.241.227:11411/api/generate -d '{
-  "model": "qwen2:0.5b",
-  "prompt": "Why is the sky blue?",
-  "stream": false
-}'
-```
-2. 模型对话
-```
-curl http://118.178.241.227:11411/api/chat -d '{
-  "model": "qwen2:0.5b",
-  "messages": [
-    { "role": "user", "content": "why is the sky blue?" }
-  ],
-  "stream": false
-}'
-```
-
-3、接入第三方工具
-例如，使用dify或ragflow配置大模型，只需输入URL和模型名称即可。
-
->模型类型：LLM
->
->服务器URL: http://118.178.241.227:11411
->
->模型名称: qwen2:0.5b
->
->Completion type: 对话
+## 使用GPU部署xinfenrence
+  ```
+  xinference:
+    image: xprobe/xinference:v0.15.3
+    container_name: xinference
+    restart: always
+    ports:
+      - "9998:9997"
+    environment:
+      - XINFERENCE_HOME=/opt/xinference
+      - XINFERENCE_MODEL_SRC=modelscope
+    volumes:
+      - /opt/xinference_gpu:/opt/xinference
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - capabilities: [gpu]
+    command: xinference-local -H 0.0.0.0
+  ```
 
 
-<p>这样，您就可以在第三方工具上愉快地使用自己部署的大模型了，直接在网页上进行对话或文章解读。<p>
+## 使用xinfenrence部署大模型请参考其他分支 xinfenrence/xxxxxx

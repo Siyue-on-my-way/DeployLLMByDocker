@@ -1,12 +1,35 @@
-version: '3.8'  # 你可以根据需要使用不同的版本
+version: '3.8'
 
 services:
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    volumes:
-      - ./models:/root/.ollama
-    ports:
-      # ollama服务默认端口是11434， 这里向外暴露端口是11411
-      - "11411:11434"
+  # ######################################### GPU 部署 #########################################
+  # xinference:
+  #   image: xprobe/xinference:v0.15.3
+  #   container_name: xinference
+  #   restart: always
+  #   ports:
+  #     - "9998:9997"
+  #   environment:
+  #     - XINFERENCE_HOME=/opt/xinference
+  #     - XINFERENCE_MODEL_SRC=modelscope
+  #   volumes:
+  #     - /opt/xinference_gpu:/opt/xinference
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - capabilities: [gpu]
+  #   command: xinference-local -H 0.0.0.0
+  
+
+  ######################################### CPU 部署 #########################################
+  xinference:
+    image: docker-registry.neuedu.com/xprobe/xinference:v0.15.2-cpu
+    container_name: xinference
     restart: always
+    ports:
+      - "9997:9997"
+    environment:
+      - XINFERENCE_HOME=/opt/xinference
+    volumes:
+      - /opt/xinference:/opt/xinference
+    command: xinference-local -H 0.0.0.0
