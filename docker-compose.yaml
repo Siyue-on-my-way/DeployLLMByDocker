@@ -4,7 +4,7 @@ services:
   # ######################################### GPU 部署 #########################################
   # xinference:
   #   image: xprobe/xinference:v0.15.3
-  #   container_name: xinference
+  #   container_name: xinference-gpu
   #   restart: always
   #   ports:
   #     - "9998:9997"
@@ -24,10 +24,10 @@ services:
   ######################################### CPU 部署 #########################################
   xinference:
     image: docker-registry.neuedu.com/xprobe/xinference:v0.15.2-cpu
-    container_name: xinference
+    container_name: xinference-cpu
     restart: always
     ports:
-      - "9997:9997"
+      - "11007:9997"
     environment:
       - XINFERENCE_HOME=/opt/xinference
     volumes:
