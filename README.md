@@ -2,6 +2,12 @@
 ### 部署ollama
 <p>启动ollama并暴露服务端口<p>
 <p>使用docker-compose启动ollama服务，并暴露服务端口。<p>
+
+> 执行以下命令，会自动拉取ollama镜像，然后启动ollama服务
+
+```
+docker-compose up -d
+```
 <p>进入docker ollama容器<p>
 
 ```
@@ -9,13 +15,18 @@ docker exec -it ollama bash
 ```
 
 
-### ollama启动大模型
+
+
+
+### 在容器中，ollama启动大模型
 <p>使用ollama命令启动大模型<p>
 <p>ollama工具会自动下载qwen2:0.5b的模型并运行。<p>
 
 ```
 ollama run qwen2:0.5b
 ```
+
+
 
 
 ### 测试
