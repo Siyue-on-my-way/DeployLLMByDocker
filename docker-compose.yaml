@@ -11,6 +11,7 @@ services:
   #   environment:
   #     - XINFERENCE_HOME=/opt/xinference
   #     - XINFERENCE_MODEL_SRC=modelscope
+  #     - XINFERENCE_MODEL_SRC=hf-mirror  # 指定从 Hugging Face 镜像站下载
   #   volumes:
   #     - /opt/xinference_gpu:/opt/xinference
   #   deploy:
@@ -30,6 +31,7 @@ services:
       - "11007:9997"
     environment:
       - XINFERENCE_HOME=/opt/xinference
+      - XINFERENCE_MODEL_SRC=hf-mirror  # 指定从 Hugging Face 镜像站下载
     volumes:
       - /opt/xinference:/opt/xinference
     command: xinference-local -H 0.0.0.0
