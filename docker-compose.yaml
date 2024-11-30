@@ -1,37 +1,19 @@
 version: '3.8'
-
 services:
-  # ######################################### GPU 部署 #########################################
-  # xinference:
-  #   image: xprobe/xinference:v0.15.3
-  #   container_name: xinference-gpu
-  #   restart: always
-  #   ports:
-  #     - "9998:9997"
-  #   environment:
-  #     - XINFERENCE_HOME=/opt/xinference
-  #     - XINFERENCE_MODEL_SRC=modelscope
-  #     - XINFERENCE_MODEL_SRC=hf-mirror  # 指定从 Hugging Face 镜像站下载
-  #   volumes:
-  #     - /opt/xinference_gpu:/opt/xinference
-  #   deploy:
-  #     resources:
-  #       reservations:
-  #         devices:
-  #           - capabilities: [gpu]
-  #   command: xinference-local -H 0.0.0.0
-  
-
-  ######################################### CPU 部署 #########################################
-  xinference:
-    image: docker-registry.neuedu.com/xprobe/xinference:v0.15.2-cpu
-    container_name: xinference-cpu
+  vllm:
+    image: vllm/vllm:latest # 使用官方或构建的 vLLM 镜像
+    container_name: vllm-service
     restart: always
     ports:
-      - "11007:9997"
-    environment:
-      - XINFERENCE_HOME=/opt/xinference
-      - XINFERENCE_MODEL_SRC=hf-mirror  # 指定从 Hugging Face 镜像站https://hf-mirror.com/下载
+      - "8000:8000"  # 映射服务端口，修改为实际需要的端口
     volumes:
-      - /opt/xinference:/opt/xinference
-    command: xinference-local -H 0.0.0.0
+      - ./models:/models  # 模型存储路径
+    environment:
+      - VLLM_MODEL_NAME=gpt-3.5-turbo  # 指定模型名称，例如 GPT 系列
+      - VLLM_MODEL_PATH=/models/gpt-3.5-turbo  # 模型路径
+    # command: >
+    #   vllm-serve --model-name=${VLLM_MODEL_NAME} 
+    #              --model-path=${VLLM_MODEL_PATH} 
+    #              --port=8000
+    command: >
+      vllm-serve
