@@ -19,7 +19,9 @@ services:
   #       reservations:
   #         devices:
   #           - capabilities: [gpu]
-  #   command: xinference-local -H 0.0.0.0
+    # command: >
+    #   /bin/sh -c "pip install 'xinference[transformers,vllm]' -i https://mirrors.aliyun.com/pypi/simple/  &&
+    #               xinference-local -H 0.0.0.0"
   
 
   ######################################### CPU 部署 #########################################
@@ -34,4 +36,6 @@ services:
       - XINFERENCE_MODEL_SRC=hf-mirror  # 指定从 Hugging Face 镜像站https://hf-mirror.com/下载
     volumes:
       - /opt/xinference:/opt/xinference
-    command: xinference-local -H 0.0.0.0
+    command: >
+      /bin/sh -c "pip install 'xinference[transformers,vllm]' -i https://mirrors.aliyun.com/pypi/simple/  &&
+                  xinference-local -H 0.0.0.0"
