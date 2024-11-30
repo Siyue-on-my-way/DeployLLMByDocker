@@ -31,7 +31,7 @@ services:
       - "11007:9997"
     environment:
       - XINFERENCE_HOME=/opt/xinference
-      - XINFERENCE_MODEL_SRC=hf-mirror  # 指定从 Hugging Face 镜像站下载
+      - XINFERENCE_MODEL_SRC=hf-mirror  # 指定从 Hugging Face 镜像站https://hf-mirror.com/下载
     volumes:
       - /opt/xinference:/opt/xinference
     command: xinference-local -H 0.0.0.0
