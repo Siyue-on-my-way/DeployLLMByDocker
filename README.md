@@ -1,4 +1,4 @@
-# xinference的部署
+# vllm的部署
 
 ## 使用CPU部署xinfenrence
 ```
