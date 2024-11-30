@@ -38,3 +38,8 @@
 
 
 ## 使用xinfenrence部署大模型请参考其他分支 xinfenrence/xxxxxx
+> 主要是在页面上选择对应的模型，如http://118.178.241.227:11007/ui/#/launch_model/llm页面，选择对应的model然后点击下载，即可尽情享用了
+> 查看模型的下载日志
+```
+docker logs -f xinference-cpu
+```
