@@ -36,6 +36,7 @@ services:
       - XINFERENCE_MODEL_SRC=hf-mirror  # 指定从 Hugging Face 镜像站https://hf-mirror.com/下载
     volumes:
       - /opt/xinference:/opt/xinference
-    command: >
+    command:
       /bin/sh -c "pip install 'xinference[transformers,vllm]' -i https://mirrors.aliyun.com/pypi/simple/  &&
                   xinference-local -H 0.0.0.0"
+      # 将安装 Transformers 和 vLLM 作为 Xinference 的推理引擎后端
